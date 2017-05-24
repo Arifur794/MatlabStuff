@@ -1,0 +1,523 @@
+>> %Matlab assignent 6 Arifur Rahman
+>> rand('seed',1980)
+>> %Question 1
+>> u = rvect(2), v = rvect(2)
+
+u =
+
+     5
+     7
+
+
+v =
+
+     7
+     1
+
+>> rank([u, v])
+
+ans =
+
+     2
+
+>> %Question 1 a)
+>> % triangle inequality: So considering u and v as two sides
+>> % of a triagnle, we can relate ||u||, ||v||, and ||u+v||
+>> %in a way to represent the third side of the triangle which
+>> %must be less than or equal to the length of ||u+v||
+>> %in symbol form this will translate to ||u+v|| must be 
+>> %less than or equal to ||u|| + ||v|| and the only case where it is 
+>> %equal is only when u and v are collinear. 
+>> norm(u)
+
+ans =
+
+    8.6023
+
+>> norm(v)
+
+ans =
+
+    7.0711
+
+>> norm(u) + norm (v)
+
+ans =
+
+   15.6734
+
+>> norm(u+v)
+
+ans =
+
+   14.4222
+
+>> %my particular vectors satisfy the inequality because
+>> %14.42 is less than 15.67.
+>> 
+>> %Question 1 b)
+>> % the cauchy-schwarz inequality says that the absolute value of the dot
+>> %product of u and v (|u.v|) must be less than or equal to the scalar multiplication
+>> %of ||u||*||v||
+>> norm (u)* norm(v)
+
+ans =
+
+   60.8276
+
+>> abs(u*v)
+Error using  * 
+Inner matrix dimensions must agree.
+ 
+>> abs (u'*v)
+
+ans =
+
+    42
+
+>> %thus the cauchy-shwarz inequatily has been sastisfied because
+>> % 42 is less than 60.8276
+>> %Question 1 c)
+>> w= ((u'*v)/(norm(v))^2)*norm(v)
+
+w =
+
+    5.9397
+
+>> z= norm(u)-w
+
+z =
+
+    2.6626
+
+>> u'*v
+
+ans =
+
+    42
+
+>> 42/(v'*v)
+
+ans =
+
+    0.8400
+
+>> .84*norm(v)
+
+ans =
+
+    5.9397
+
+>> z=u-w
+
+z =
+
+   -0.9397
+    1.0603
+
+>> z'*v
+
+ans =
+
+   -5.5176
+
+>> z=norm(u)-w
+
+z =
+
+    2.6626
+
+>> z'*v
+
+ans =
+
+   18.6384
+    2.6626
+
+>> z=norm(u)-norm(w)
+
+z =
+
+    2.6626
+
+>> z*v
+
+ans =
+
+   18.6384
+    2.6626
+
+>> z'*v
+
+ans =
+
+   18.6384
+    2.6626
+
+>> u'*v
+
+ans =
+
+    42
+
+>> 42/((norm(v))^2)
+
+ans =
+
+    0.8400
+
+>> .84*v
+
+ans =
+
+    5.8800
+    0.8400
+
+>> z=[5.88;]
+
+z =
+
+    5.8800
+
+>> z=[5.88;.84]
+
+z =
+
+    5.8800
+    0.8400
+
+>> z'*v
+
+ans =
+
+    42
+
+>> w=[5.88; .84]
+
+w =
+
+    5.8800
+    0.8400
+
+>> z=u-w
+
+z =
+
+   -0.8800
+    6.1600
+
+>> z'*v
+
+ans =
+
+   8.8818e-16
+
+>> %since the dot product of z and v is 8.8818e-16 we can estimate it 
+>> %as being equal to 0, so z and v are othognonal to each other
+>> %Question 1 d)
+>> P = v*inv(v'*v)*v'
+
+P =
+
+    0.9800    0.1400
+    0.1400    0.0200
+
+>> % p turns out to be a 2x2 matrix because v is 2x1 
+>> % then the inv(v'*v) is a 1x1 because it is a scalar
+>> % 2x1 times 1x1 leaves us with a 2x1 which is multiplied
+>> %by v' which is 1x2, so 2x1 times 1x2 leaves us with the 2x2
+>> P*u
+
+ans =
+
+    5.8800
+    0.8400
+
+>> %this ^ is my the same as my vector w 
+>> %Question 2 
+>> u1 = rvect(3), u2 = rvect(3), u3 = rvect(3)
+
+u1 =
+
+     5
+     7
+     7
+
+
+u2 =
+
+     1
+     6
+     2
+
+
+u3 =
+
+     6
+     6
+     1
+
+>> plot3(r*u1(1), r*u1(2), r*u1(3), 'r:')
+>> plot3(r*u2(1),r*u2(2), r*u2(3), 'g:')
+>> plot3(r*u3(1),r*u3(2), r*u3(3), 'b:')
+>> 
+>> %Judging from a visual these vectors are not mutually orthogonal.
+>> %Question 2 b)
+>> v1 = u1
+
+v1 =
+
+     5
+     7
+     7
+
+
+ 
+>> P1 = v1*inv(v1'*v1)*v1', v2 = u2 - P1*u2
+
+P1 =
+
+    0.2033    0.2846    0.2846
+    0.2846    0.3984    0.3984
+    0.2846    0.3984    0.3984
+
+
+v2 =
+
+   -1.4797
+    2.5285
+   -1.4715
+
+>> v1'*v2
+
+ans =
+
+  -8.8818e-15
+
+>> %Thus v1 and v2 are mutually othogonal
+>> plot3(r*v2(1),r*v2(2),r*v2(3), 'g-.')
+>> P2 = v2*inv(v2'*v2)*v2', v3 = u3 - P1*u3 - P2*u3
+
+P2 =
+
+    0.2037   -0.3481    0.2026
+   -0.3481    0.5948   -0.3462
+    0.2026   -0.3462    0.2015
+
+
+v3 =
+
+    3.4523
+    0.3699
+   -2.8359
+
+>> v1'*v3
+
+ans =
+
+   3.5527e-15
+
+>> %thus v1 is othogonal to v3
+>> v2'*v3
+
+ans =
+
+   6.2172e-15
+
+>> %thus v2 is othogonal v3
+
+
+ 
+>> plot3(r*v3(1),r*v3(2),r*v3(3), 'b-.')
+>> %Question 2 c)
+>> w1 = v1/norm(v1), w2 = v2/norm(v2), w3 = v3/norm(v3)
+
+w1 =
+
+    0.4508
+    0.6312
+    0.6312
+
+
+w2 =
+
+   -0.4513
+    0.7712
+   -0.4489
+
+
+w3 =
+
+    0.7701
+    0.0825
+   -0.6326
+
+>> Q = [w1, w2, w3]
+
+Q =
+
+    0.4508   -0.4513    0.7701
+    0.6312    0.7712    0.0825
+    0.6312   -0.4489   -0.6326
+
+>> % i) entries in Q^t Q is [w1.w1 +w1.w2+ w1.w3] which turns out to be
+>> % a 1x1 matrix
+>> % ii) Q^-1= [.4508 .6312 .6311]
+>> % ii) Q^-1= [.4508 .6312 .6311; -.4514 .7712 -.4488; .7701 .0825 -.6325]
+>> % iii) 
+>> w2'*u1
+
+ans =
+
+  -2.2204e-15
+
+>> w3'*u1
+
+ans =
+
+     0
+
+>> w3'*u2
+
+ans =
+
+   1.1102e-15
+
+>> %all these equal zero
+>> %Question 3 
+>> a1 = rvect(5); a2 = rvect(5); a3 = rvect(5); A = [a1, a2, a3]
+
+A =
+
+     5     1     2
+     4     1     4
+     2     1     2
+     9     4     0
+     3     6     5
+
+>> rank(A)
+
+ans =
+
+     3
+
+>> %Question 3 a)
+>> Q = grams(A); w1 = Q(:,1), w2 = Q(:,2), w3 = Q(:,3)
+
+w1 =
+
+    0.4303
+    0.3443
+    0.1721
+    0.7746
+    0.2582
+
+
+w2 =
+
+   -0.2891
+   -0.1902
+    0.0076
+   -0.0685
+    0.9357
+
+
+w3 =
+
+    0.2732
+    0.6929
+    0.2742
+   -0.5809
+    0.1805
+
+>> Q'*Q
+
+ans =
+
+    1.0000    0.0000   -0.0000
+    0.0000    1.0000   -0.0000
+   -0.0000   -0.0000    1.0000
+
+>> % Because according to 2c the orthonormal property states that 
+>> % dividing each vector by its norm will give us the magnitudes of the individual unitvectors
+>> P = w1*w1' + w2*w2' + w3*w3'
+
+P =
+
+    0.3434    0.3925    0.1468    0.1944   -0.1101
+    0.3925    0.6348    0.2478   -0.1228    0.0360
+    0.1468    0.2478    0.1049   -0.0265    0.1011
+    0.1944   -0.1228   -0.0265    0.9421    0.0311
+   -0.1101    0.0360    0.1011    0.0311    0.9748
+
+>> v = rvect(5)
+
+v =
+
+     8
+     6
+     9
+     5
+     0
+
+>> w = P*v, z = v - w
+
+w =
+
+    7.3953
+    8.5650
+    3.4730
+    5.2906
+    0.4007
+
+
+z =
+
+    0.6047
+   -2.5650
+    5.5270
+   -0.2906
+   -0.4007
+
+>> P*w
+
+ans =
+
+    7.3953
+    8.5650
+    3.4730
+    5.2906
+    0.4007
+
+>> %equal to w ^
+>> P*z
+
+ans =
+
+   1.0e-14 *
+
+    0.0638
+    0.0245
+    0.0236
+    0.2649
+    0.1221
+
+>> % pz= 0
+>> %Question 3 c) 
+>> PW = A*inv(A'*A)*A'
+
+PW =
+
+    0.3434    0.3925    0.1468    0.1944   -0.1101
+    0.3925    0.6348    0.2478   -0.1228    0.0360
+    0.1468    0.2478    0.1049   -0.0265    0.1011
+    0.1944   -0.1228   -0.0265    0.9421    0.0311
+   -0.1101    0.0360    0.1011    0.0311    0.9748
+
+>> norm(PW - P) 
+
+ans =
+
+   6.3292e-16
+
+>> %equals 0 ^
